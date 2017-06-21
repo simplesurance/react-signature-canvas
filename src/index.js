@@ -22,7 +22,7 @@ export default class SignatureCanvas extends Component {
     minWidth: 0.5,
     maxWidth: 2.5,
     dotSize: () => {
-      return (this.props.minWidth + this.props.maxWidth) / 2
+      return this ? (this.props.minWidth + this.props.maxWidth) / 2 : 2
     },
     penColor: 'black',
     backgroundColor: 'rgba(0,0,0,0)',
