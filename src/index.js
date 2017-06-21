@@ -14,7 +14,8 @@ export default class SignatureCanvas extends Component {
     penColor: PropTypes.string,
     onEnd: PropTypes.func,
     onBegin: PropTypes.func,
-    canvasProps: PropTypes.object
+    canvasProps: PropTypes.object,
+    keepOnResize: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -120,7 +121,10 @@ export default class SignatureCanvas extends Component {
     this._canvas.addEventListener('mousedown', this._handleMouseDown)
     this._canvas.addEventListener('mousemove', this._handleMouseMove)
     document.addEventListener('mouseup', this._handleMouseUp)
-    window.addEventListener('resize', this._resizeCanvas)
+
+    if (!this.props.keepOnResize) {
+      window.addEventListener('resize', this._resizeCanvas)
+    }
   }
 
   _handleTouchEvents = () => {
@@ -141,7 +145,9 @@ export default class SignatureCanvas extends Component {
     this._canvas.removeEventListener("touchmove", this._handleTouchMove)
     document.removeEventListener("touchend", this._handleTouchEnd)
 
-    window.removeEventListener("resize", this._resizeCanvas)
+    if (!this.props.keepOnResize) {
+      window.addEventListener('resize', this._resizeCanvas)
+    }
   }
 
   _handleMouseDown = (ev) => {
